@@ -24,6 +24,15 @@ public class Order {
     private String orderNumber;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @Column(name = "order_line_items_list")
+    @JoinColumn(name = "order_line_items_list")
     private List<OrderLineItems> orderLineItemsList;
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", orderNumber='" + orderNumber + '\'' +
+                ", orderLineItemsList=" + orderLineItemsList +
+                '}';
+    }
 }

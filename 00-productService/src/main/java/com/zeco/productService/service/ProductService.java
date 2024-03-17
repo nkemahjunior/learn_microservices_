@@ -8,7 +8,7 @@ import com.zeco.productService.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
+
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class ProductService {
    private final ProductRepository productRepository ;
 
 
-    public ProductService(ProductRepository productRepository, WebClient webClient) {
+    public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
 
     }

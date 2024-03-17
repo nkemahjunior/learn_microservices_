@@ -11,6 +11,7 @@ import com.zeco.orderService.repository.OrderRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -25,17 +26,21 @@ import java.util.UUID;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private final WebClient webClient;
+    private final WebClient.Builder webClientBuilder;
 
 
-    public OrderService(OrderRepository orderRepository, WebClient webClient) {
+   @Autowired
+    public OrderService(OrderRepository orderRepository, WebClient.Builder webClientBuilder) {
         this.orderRepository = orderRepository;
-        this.webClient = webClient;
+        //this.webClient = webClient;
 
+        this.webClientBuilder = webClientBuilder;
     }
 
 
     public void placeOrder(OrderRequest orderRequest){//order request is a json array
+
+
 
         Order order = new Order();
         order.setOrderNumber(UUID.randomUUID().toString());
@@ -52,19 +57,29 @@ public class OrderService {
                 .map(OrderLineItems::getSkuCode)
                 .toList();
 
+
+
         /** call inventory service and place order if product is in stock**/
 
-        InventoryResponse[] inventoryResponses = webClient.get()
-                        .uri("http://localhost:8082/api/inventory", uriBuilder -> uriBuilder.queryParam("skuCode",skuCodes).build())
+
+
+        InventoryResponse[] inventoryResponses = webClientBuilder.build().get()
+                        //.uri("http://localhost:8082/api/inventory", uriBuilder -> uriBuilder.queryParam("skuCode",skuCodes).build())
+                        //.uri("http://inventoryService/api/inventory/sku-code?skuCode=iphone_13&skuCode=iphone_131")
+                            .uri("http://inventoryService/api/inventory/sku-code", uriBuilder -> uriBuilder.queryParam("skuCode",skuCodes).build())
                                 .retrieve()
                                         .bodyToMono(InventoryResponse[].class)
                                                 .block(); // this block method will make this operation synchronous
+
+
+
 
 
         /***the allMatch method checks if all elements in an array/list meet a certain condition, it any of the elements dont meet the condition, it returns false***/
        boolean allProductsIsInStock =  Arrays.stream(inventoryResponses).allMatch(InventoryResponse::isInStock);
 
         if(allProductsIsInStock){
+
             orderRepository.save(order);
         }else{
             throw new IllegalArgumentException("product is not in stock, please try again later");
