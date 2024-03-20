@@ -12,6 +12,7 @@
         <module name="orderService" />
         <module name="productService" />
         <module name="EurekaDemo" />
+        <module name="notificationService" />
       </profile>
     </annotationProcessing>
   </component>
@@ -20,6 +21,7 @@
       <module name="ApiGateway" options="-parameters" />
       <module name="EurekaDemo" options="-parameters" />
       <module name="inventoryService" options="-parameters" />
+      <module name="notificationService" options="-parameters" />
       <module name="orderService" options="-parameters" />
       <module name="productService" options="-parameters" />
     </option>

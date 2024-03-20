@@ -10,6 +10,7 @@
         <option value="$PROJECT_DIR$/03-usingDiscoveryServer(Eureka)/usingDiscoveryServer-Eureka/pom.xml" />
         <option value="$PROJECT_DIR$/03-EurekaDemo/pom.xml" />
         <option value="$PROJECT_DIR$/04-ApiGateway/pom.xml" />
+        <option value="$PROJECT_DIR$/05-notificationService/pom.xml" />
       </list>
     </option>
   </component>

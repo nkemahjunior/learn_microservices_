@@ -6,5 +6,6 @@
     <file url="file://$PROJECT_DIR$/02-inventoryService/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/03-EurekaDemo/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/04-ApiGateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/05-notificationService/src/main/java" charset="UTF-8" />
   </component>
 </project>
